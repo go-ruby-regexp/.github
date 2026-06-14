@@ -12,7 +12,7 @@
   <a href="https://go-onigmo.github.io/docs/"><img alt="Docs" src="https://img.shields.io/badge/docs-mkdocs--material-9B1C2E?style=flat-square"></a>
   <a href="https://github.com/go-onigmo/regexp/blob/main/LICENSE"><img alt="License: BSD-3-Clause" src="https://img.shields.io/badge/license-BSD--3--Clause-blue?style=flat-square"></a>
   <img alt="Go 1.26.4+" src="https://img.shields.io/badge/go-1.26.4%2B-00ADD8?style=flat-square&logo=go&logoColor=white">
-  <img alt="Status: planning" src="https://img.shields.io/badge/status-planning-9a6700?style=flat-square">
+  <img alt="Phase 0+1 done" src="https://img.shields.io/badge/phase-0%2B1%20done-1a7f37?style=flat-square">
 </p>
 
 ---
@@ -55,8 +55,13 @@ for the sibling org
 
 ## Status
 
-**Planning.** The architecture, ReDoS strategy and a six-phase roadmap (scanner +
-parser + VM → full Ruby `Regexp`/`MatchData` surface) live in
+**Phases 0 and 1 done.** A greedy backtracking VM with leftmost-first semantics:
+literals/escapes, `.`, character classes, anchors (`\A \z \Z ^ $`), greedy
+quantifiers, capturing/non-capturing groups, alternation, **named groups
+`(?<name>…)` and backreferences `\1` / `\k<name>`** — differential-tested against
+MRI, 100% coverage, CI green across 6 arches. Lookaround, Unicode `\p{}`,
+case-folding and ReDoS memoization are next. The architecture and six-phase
+roadmap live in
 [regexp/docs/plan-regexp.md](https://github.com/go-onigmo/regexp/blob/main/docs/plan-regexp.md)
 and on the [documentation site](https://go-onigmo.github.io/docs/).
 
