@@ -12,7 +12,7 @@
   <a href="https://go-onigmo.github.io/docs/"><img alt="Docs" src="https://img.shields.io/badge/docs-mkdocs--material-9B1C2E?style=flat-square"></a>
   <a href="https://github.com/go-onigmo/regexp/blob/main/LICENSE"><img alt="License: BSD-3-Clause" src="https://img.shields.io/badge/license-BSD--3--Clause-blue?style=flat-square"></a>
   <img alt="Go 1.26.4+" src="https://img.shields.io/badge/go-1.26.4%2B-00ADD8?style=flat-square&logo=go&logoColor=white">
-  <img alt="Phase 0+1 done" src="https://img.shields.io/badge/phase-0%2B1%20done-1a7f37?style=flat-square">
+  <img alt="Engine roadmap: Phases 0–4 complete" src="https://img.shields.io/badge/phase-0--4%20complete-1a7f37?style=flat-square">
 </p>
 
 ---
@@ -55,13 +55,22 @@ for the sibling org
 
 ## Status
 
-**Phases 0 and 1 done.** A greedy backtracking VM with leftmost-first semantics:
-literals/escapes, `.`, character classes, anchors (`\A \z \Z ^ $`), greedy
-quantifiers, capturing/non-capturing groups, alternation, **named groups
-`(?<name>…)` and backreferences `\1` / `\k<name>`** — differential-tested against
-MRI, 100% coverage, CI green across 6 arches. Lookaround, Unicode `\p{}`,
-case-folding and ReDoS memoization are next. The architecture and six-phase
-roadmap live in
+**Engine roadmap (Phases 0–4) complete.** A backtracking VM with leftmost-first
+semantics covering literals/escapes, `.`, character classes (incl. POSIX
+`[[:alpha:]]` and multibyte members `[é]` / `[à-ï]`), anchors (`\A \z \Z \G ^ $`),
+**every quantifier mode** (greedy, lazy `*? +? ??`, possessive `*+ ++ ?+`, atomic
+groups `(?>…)`), capturing/non-capturing/named groups, alternation,
+**backreferences `\1` / `\k<name>`**, **lookahead and fixed/bounded-width
+lookbehind**, **recursive subexpression calls `\g<…>`**, inline flags `(?imx)`,
+**`\p{…}` Unicode properties**, rune-level `/i` case folding, `\h` / `\H`, `\R`,
+and **UTF-8 / ASCII-8BIT multi-encoding** with a char-advancing `.`. It is
+ReDoS-hardened (memoization + step budget + recursion cap + `WithTimeout`) and
+carries a transparent **start-position / interior-literal optimizer** (up to
+~210× faster) with a benchmark suite — differential-tested against MRI, 100%
+coverage, CI green across 6 arches. Phase 5 (the Ruby `Regexp`/`MatchData`
+surface and replacement DSL) is downstream in the go-embedded-ruby adapter that
+consumes this engine, not part of this module. The architecture, the documented
+out-of-scope boundaries, and the six-phase roadmap live in
 [regexp/docs/plan-regexp.md](https://github.com/go-onigmo/regexp/blob/main/docs/plan-regexp.md)
 and on the [documentation site](https://go-onigmo.github.io/docs/).
 
