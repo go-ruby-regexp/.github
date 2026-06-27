@@ -66,8 +66,9 @@ lookbehind**, **recursive subexpression calls `\g<…>`**, inline flags `(?imx)`
 and **UTF-8 / ASCII-8BIT multi-encoding** with a char-advancing `.`. It is
 ReDoS-hardened (memoization + step budget + recursion cap + `WithTimeout`) and
 carries a transparent **start-position / interior-literal optimizer** (up to
-~210× faster) with a benchmark suite — differential-tested against MRI, 100%
-coverage, CI green across 6 arches. Phase 5 (the Ruby `Regexp`/`MatchData`
+~210× faster) plus a **lazy-NFA + cached-DFA** fast path, with a benchmark suite —
+differential-tested against MRI, 100% coverage, CI green across 6 arches. Phase 5
+(the Ruby `Regexp`/`MatchData`
 surface and replacement DSL) is downstream in the go-embedded-ruby adapter that
 consumes this engine, not part of this module. The architecture, the documented
 out-of-scope boundaries, and the six-phase roadmap live in
